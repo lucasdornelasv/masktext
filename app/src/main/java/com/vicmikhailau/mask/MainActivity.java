@@ -1,12 +1,12 @@
-package com.vicmikhailau.maskededittextsample;
+package com.vicmikhailau.mask;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 
-import com.vicmikhailau.maskededittext.MaskedEditText;
-import com.vicmikhailau.maskededittext.MaskedFormatter;
-import com.vicmikhailau.maskededittext.MaskedWatcher;
+import com.vicmikhailau.masktext.MaskFormatter;
+import com.vicmikhailau.masktext.MaskedEditText;
+import com.vicmikhailau.masktext.MaskedWatcher;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MaskedEditText mEdtMaskedCustom;
     private EditText mEdtMasked;
-    private MaskedFormatter formatter;
+    private MaskFormatter formatter;
 
     // ===========================================================
     // Constructors
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViews();
-        setMask("##/##/####");
+        setMask("##/##/####", "UUU-####");
     }
 
     // ===========================================================
@@ -80,10 +80,12 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param mask your mask
      */
-    private void setMask(String mask) {
-        formatter = new MaskedFormatter(mask);
+    private void setMask(String mask, String... masks) {
+        formatter = MaskFormatter.builder(mask)
+                .addMask(masks)
+                .build();
         mEdtMasked.addTextChangedListener(new MaskedWatcher(formatter, mEdtMasked));
-        String s = formatter.formatString(mEdtMasked.getText().toString()).getUnMaskedString();
+        String s = formatter.formatText(mEdtMasked.getText().toString()).getUnMaskedString();
     }
 
     private void getUnMaskedTextForEdtCustom() {

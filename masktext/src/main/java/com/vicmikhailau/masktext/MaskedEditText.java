@@ -1,9 +1,8 @@
-package com.vicmikhailau.maskededittext;
+package com.vicmikhailau.masktext;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v7.widget.AppCompatEditText;
-import android.text.Editable;
 import android.util.AttributeSet;
 
 public class MaskedEditText extends AppCompatEditText {
@@ -12,7 +11,7 @@ public class MaskedEditText extends AppCompatEditText {
     // Fields
     // ===========================================================
 
-    private MaskedFormatter mMaskedFormatter;
+    private MaskFormatter mMaskedFormatter;
     private MaskedWatcher mMaskedWatcher;
 
     // ===========================================================
@@ -40,17 +39,17 @@ public class MaskedEditText extends AppCompatEditText {
     // ===========================================================
 
     public String getMaskString() {
-        return mMaskedFormatter.getMaskString();
+        return mMaskedFormatter.getCurrentMask().getFormatString();
     }
 
     public String getUnMaskedText() {
         String currentText = getText().toString();
-        IFormattedString formattedString = mMaskedFormatter.formatString(currentText);
+        IFormattedText formattedString = mMaskedFormatter.formatText(currentText);
         return formattedString.getUnMaskedString();
     }
 
     public void setMask(String mMaskStr) {
-        mMaskedFormatter = new MaskedFormatter(mMaskStr);
+        mMaskedFormatter = MaskFormatter.getInstance(mMaskStr);
 
         if (mMaskedWatcher != null) {
             removeTextChangedListener(mMaskedWatcher);

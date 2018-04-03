@@ -25,13 +25,13 @@ ext {
 }
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 26
-        versionCode 3
-        versionName "2.0.4"
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0.0"
     }
     buildTypes {
         release {
@@ -42,13 +42,13 @@ android {
 }
 
 ext {
-    support = "26.1.0"
+    support = "27.1.0"
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile "com.android.support:appcompat-v7:$support"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    implementation "com.android.support:appcompat-v7:$support"
 }
 
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'

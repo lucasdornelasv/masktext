@@ -9,10 +9,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.vicmikhailau.maskededittextsample.MainActivity">
+    tools:context="com.vicmikhailau.mask.MainActivity">
 
 
-    <com.vicmikhailau.maskededittext.MaskedEditText
+    <com.vicmikhailau.masktext.MaskedEditText
         android:id="@+id/edt_masked_custom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,10 +28,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:hint="@string/edt_masked_date_hint"
-        android:inputType="date"
+        android:inputType="text"
         android:textColor="@android:color/black" />
 
-    <com.vicmikhailau.maskededittext.MaskedEditText
+    <com.vicmikhailau.masktext.MaskedEditText
         android:id="@+id/edt_masked_custom_sample"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

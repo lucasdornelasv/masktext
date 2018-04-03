@@ -24,7 +24,7 @@ dependencies {
 Just add in xml custom MaskedEditText with attribute app:mask="your_mask" like below:
 
 ```xml
-<com.vicmikhailau.maskededittext.MaskedEditText
+<masktext.MaskedEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:mask="your_mask" />
