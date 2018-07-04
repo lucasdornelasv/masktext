@@ -14,13 +14,10 @@ public class Mask {
     //endregion
 
     //region CONSTRUCTORS
-    Mask(String fmtString, IMaskCharacterFactory factory) {
-        mRawMaskString = fmtString;
-        mMask = buildMask(factory, mRawMaskString);
-    }
-
-    Mask(List<IMaskCharacter> mMask) {
+    Mask(String fmtString, List<IMaskCharacter> mMask) {
+        this.mRawMaskString = fmtString;
         this.mMask = mMask;
+        setupPrepolutate();
     }
     //endregion
 
@@ -63,18 +60,13 @@ public class Mask {
     //endregion
 
     //region PRIVATE METHODS
-    private List<IMaskCharacter> buildMask(IMaskCharacterFactory factory, String fmtString) {
-        List<IMaskCharacter> result = new ArrayList<>();
+    private void setupPrepolutate() {
         mPrepopulateCharacter = new ArrayList<>();
-        IMaskCharacter maskCharacter;
-        for (char ch : fmtString.toCharArray()) {
-            maskCharacter = factory.getMaskCharacter(ch);
+        for (IMaskCharacter maskCharacter : mMask) {
             if (maskCharacter.isPrepopulate()) {
                 mPrepopulateCharacter.add(maskCharacter);
             }
-            result.add(maskCharacter);
         }
-        return result;
     }
     //endregion
 

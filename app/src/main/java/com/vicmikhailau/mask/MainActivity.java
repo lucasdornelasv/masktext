@@ -6,7 +6,6 @@ import android.widget.EditText;
 
 import com.vicmikhailau.masktext.MaskFormatter;
 import com.vicmikhailau.masktext.MaskedEditText;
-import com.vicmikhailau.masktext.MaskedWatcher;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
         setMask("##/##/####", "UUU-####");
     }
 
+    @Override
+    protected void onDestroy() {
+        formatter.destroy();
+        super.onDestroy();
+    }
+
     // ===========================================================
     // Listeners, methods for/from Interfaces
     // ===========================================================
@@ -82,10 +87,10 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setMask(String mask, String... masks) {
         formatter = MaskFormatter.builder(mask)
-                .addMask(masks)
+                .addMasks(masks)
+                .withEditText(mEdtMasked)
                 .build();
-        mEdtMasked.addTextChangedListener(new MaskedWatcher(formatter, mEdtMasked));
-        String s = formatter.formatText(mEdtMasked.getText().toString()).getUnMaskedString();
+        String s = formatter.getUnMaskedEditText();
     }
 
     private void getUnMaskedTextForEdtCustom() {

@@ -6,7 +6,7 @@ import android.widget.EditText;
 
 import java.lang.ref.WeakReference;
 
-public class MaskedWatcher implements TextWatcher {
+class MaskedWatcher implements TextWatcher {
     //region FIELDS
     private final WeakReference<MaskFormatter> mMaskFormatter;
     private final WeakReference<EditText> mEditText;
@@ -15,7 +15,7 @@ public class MaskedWatcher implements TextWatcher {
     //endregion
 
     //region CONSTRUCTORS
-    public MaskedWatcher(MaskFormatter maskedFormatter, EditText editText) {
+    MaskedWatcher(MaskFormatter maskedFormatter, EditText editText) {
         mMaskFormatter = new WeakReference<>(maskedFormatter);
         mEditText = new WeakReference<>(editText);
     }

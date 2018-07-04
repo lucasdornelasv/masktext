@@ -12,7 +12,7 @@ import com.vicmikhailau.masktext.maskcharacters.UpperCaseCharacter;
  * Created by lucas on 02/04/2018.
  */
 
-public class DefaultMaskCharacterFactory implements IMaskCharacterFactory {
+public class DefaultMaskCharacterMapper implements IMaskCharacterMapper {
     //region FIELDS
     private static final char ANYTHING_KEY = '*';
     private static final char DIGIT_KEY = '#';
@@ -27,7 +27,7 @@ public class DefaultMaskCharacterFactory implements IMaskCharacterFactory {
 
     //region OVERRIDE METHODS
     @Override
-    public IMaskCharacter getMaskCharacter(char ch) {
+    public IMaskCharacter map(char ch) {
         IMaskCharacter maskCharacter;
         switch (ch) {
             case ANYTHING_KEY:
@@ -57,6 +57,27 @@ public class DefaultMaskCharacterFactory implements IMaskCharacterFactory {
 
         }
         return maskCharacter;
+    }
+
+    @Override
+    public char map(IMaskCharacter maskCharacter) {
+        char ch;
+        if (maskCharacter instanceof HexCharacter) {
+            ch = HEX_KEY;
+        } else if (maskCharacter instanceof LetterCharacter) {
+            ch = CHARACTER_KEY;
+        } else if (maskCharacter instanceof AlphaNumericCharacter) {
+            ch = ALPHA_NUMERIC_KEY;
+        } else if (maskCharacter instanceof LowerCaseCharacter) {
+            ch = LOWERCASE_KEY;
+        } else if (maskCharacter instanceof UpperCaseCharacter) {
+            ch = UPPERCASE_KEY;
+        } else if (maskCharacter instanceof DigitCharacter) {
+            ch = DIGIT_KEY;
+        } else if (maskCharacter instanceof LiteralCharacter) {
+            ch = maskCharacter.processCharacter(ANYTHING_KEY);
+        } else ch = 0;
+        return ch;
     }
     //endregion
 
