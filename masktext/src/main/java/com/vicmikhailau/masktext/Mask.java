@@ -23,6 +23,13 @@ public class Mask {
 
     //region METHODS
 
+    //region OVERRIDE METHODS
+    @Override
+    public String toString() {
+        return getFormatString();
+    }
+    //endregion
+
     //region PUBLIC METHODS
     public String getFormatString() {
         return mRawMaskString;

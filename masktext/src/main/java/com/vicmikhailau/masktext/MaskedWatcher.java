@@ -6,16 +6,16 @@ import android.widget.EditText;
 
 import java.lang.ref.WeakReference;
 
-class MaskedWatcher implements TextWatcher {
+public class MaskedWatcher implements TextWatcher {
     //region FIELDS
-    private final WeakReference<MaskFormatter> mMaskFormatter;
+    private final WeakReference<IMaskFormatter> mMaskFormatter;
     private final WeakReference<EditText> mEditText;
     private String oldFormattedValue = "";
     private int oldCursorPosition;
     //endregion
 
     //region CONSTRUCTORS
-    MaskedWatcher(MaskFormatter maskedFormatter, EditText editText) {
+    public MaskedWatcher(IMaskFormatter maskedFormatter, EditText editText) {
         mMaskFormatter = new WeakReference<>(maskedFormatter);
         mEditText = new WeakReference<>(editText);
     }
@@ -32,7 +32,7 @@ class MaskedWatcher implements TextWatcher {
         String value = s.toString();
 
         if (value.length() > oldFormattedValue.length()
-                && mMaskFormatter.get().getCurrentMaskLength() < value.length()) {
+                && mMaskFormatter.get().getMask().size() < value.length()) {
             value = oldFormattedValue;
         }
 
@@ -49,6 +49,7 @@ class MaskedWatcher implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+        this.oldCursorPosition = mEditText.get().getSelectionStart();
     }
     //endregion
 
@@ -72,10 +73,10 @@ class MaskedWatcher implements TextWatcher {
         } else if (deltaLength < 0) {
             newCursorPosition -= 1;
         } else {
-            Mask mask = mMaskFormatter.get().getCurrentMask();
+            Mask mask = mMaskFormatter.get().getMask();
             newCursorPosition = Math.max(1, Math.min(newCursorPosition, mask.size()));
-            if (mask.get(newCursorPosition - 1).isPrepopulate())
-                newCursorPosition -= 1;
+            /*if (mask.get(newCursorPosition - 1).isPrepopulate())
+                newCursorPosition -= 1;*/
         }
         newCursorPosition = Math.max(0, Math.min(newCursorPosition, formattedText.length()));
         editText.setSelection(newCursorPosition);

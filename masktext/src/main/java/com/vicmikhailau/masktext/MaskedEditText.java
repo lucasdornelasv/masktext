@@ -39,7 +39,7 @@ public class MaskedEditText extends AppCompatEditText {
     // ===========================================================
 
     public String getMaskString() {
-        return mMaskedFormatter.getCurrentMask().getFormatString();
+        return mMaskedFormatter.getMask().getFormatString();
     }
 
     public String getUnMaskedText() {
@@ -49,7 +49,7 @@ public class MaskedEditText extends AppCompatEditText {
     }
 
     public void setMask(String mMaskStr) {
-        mMaskedFormatter = MaskFormatter.getInstance(mMaskStr);
+        mMaskedFormatter = new MaskFormatter.Builder(mMaskStr).build();
 
         if (mMaskedWatcher != null) {
             removeTextChangedListener(mMaskedWatcher);

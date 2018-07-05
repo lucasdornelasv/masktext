@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 
+import com.vicmikhailau.masktext.IMaskFormatter;
 import com.vicmikhailau.masktext.MaskFormatter;
 import com.vicmikhailau.masktext.MaskedEditText;
+import com.vicmikhailau.masktext.MaskedWatcher;
+import com.vicmikhailau.masktext.PoliMaskFormatter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     private MaskedEditText mEdtMaskedCustom;
     private EditText mEdtMasked;
-    private MaskFormatter formatter;
+    private IMaskFormatter formatter;
+    private MaskedWatcher maskedWatcher;
 
     // ===========================================================
     // Constructors
@@ -61,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        formatter.destroy();
         super.onDestroy();
     }
 
@@ -86,11 +89,11 @@ public class MainActivity extends AppCompatActivity {
      * @param mask your mask
      */
     private void setMask(String mask, String... masks) {
-        formatter = MaskFormatter.builder(mask)
+        formatter = new PoliMaskFormatter.Builder(mask)
                 .addMasks(masks)
-                .withEditText(mEdtMasked)
                 .build();
-        String s = formatter.getUnMaskedEditText();
+
+        mEdtMasked.addTextChangedListener(maskedWatcher = new MaskedWatcher(formatter, mEdtMasked));
     }
 
     private void getUnMaskedTextForEdtCustom() {

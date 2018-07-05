@@ -28,7 +28,6 @@ public class DefaultFormattedText extends AbstractFormattedText {
         IMaskCharacter maskCharacter;
         while (strIndex < str.length() && maskCharIndex < getMask().size()) {
             maskCharacter = getMask().get(maskCharIndex);
-
             stringCharacter = str.charAt(strIndex);
 
             if (maskCharacter.isValidCharacter(stringCharacter)) {

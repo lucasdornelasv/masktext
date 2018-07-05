@@ -52,7 +52,7 @@ public abstract class AbstractFormattedText implements IFormattedText {
 
     @Override
     public boolean isValid() {
-        String str = getUnMaskedString();
+        String str = getRawString();
         int strIndex = 0;
         int maskCharIndex = 0;
         char stringCharacter;
@@ -60,7 +60,6 @@ public abstract class AbstractFormattedText implements IFormattedText {
         IMaskCharacter maskCharacter;
         while (strIndex < str.length() && maskCharIndex < getMask().size()) {
             maskCharacter = getMask().get(maskCharIndex);
-
             stringCharacter = str.charAt(strIndex);
 
             if (maskCharacter.isValidCharacter(stringCharacter)) {
