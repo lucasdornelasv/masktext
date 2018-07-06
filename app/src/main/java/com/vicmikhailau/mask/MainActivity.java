@@ -2,13 +2,18 @@ package com.vicmikhailau.mask;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.vicmikhailau.masktext.IMaskFormatter;
+import com.vicmikhailau.masktext.MaskEvent;
 import com.vicmikhailau.masktext.MaskFormatter;
 import com.vicmikhailau.masktext.MaskedEditText;
 import com.vicmikhailau.masktext.MaskedWatcher;
+import com.vicmikhailau.masktext.OnMaskCharacterListener;
 import com.vicmikhailau.masktext.PoliMaskFormatter;
+import com.vicmikhailau.masktext.maskcharacters.DigitCharacter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -90,7 +95,17 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setMask(String mask, String... masks) {
         formatter = new PoliMaskFormatter.Builder(mask)
-                .addMasks(masks)
+                .addMask(masks)
+                .withOnMaskCharacterListener(new OnMaskCharacterListener() {
+                    @Override
+                    public void onMaskCharacter(MaskEvent maskEvent) {
+                        if (maskEvent.getNext() instanceof DigitCharacter) {
+                            //mEdtMasked.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        } else {
+                            //mEdtMasked.setInputType(InputType.TYPE_CLASS_TEXT);
+                        }
+                    }
+                })
                 .build();
 
         mEdtMasked.addTextChangedListener(maskedWatcher = new MaskedWatcher(formatter, mEdtMasked));

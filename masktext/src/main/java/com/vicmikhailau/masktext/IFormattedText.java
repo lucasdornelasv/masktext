@@ -6,9 +6,11 @@ package com.vicmikhailau.masktext;
 
 public interface IFormattedText extends CharSequence {
 
-    Mask getMask();
+    IMask getMask();
 
     String getRawString();
+
+    CharSequence getRawText();
 
     String getUnMaskedString();
 

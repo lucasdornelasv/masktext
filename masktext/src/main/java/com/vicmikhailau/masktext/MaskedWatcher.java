@@ -60,26 +60,25 @@ public class MaskedWatcher implements TextWatcher {
             return;
         }
 
-        int deltaLength = formattedText.length() - oldFormattedValue.length();
-
         editText.removeTextChangedListener(this);
         editable.clear();
-        editable.append(formattedText);
+        if (formattedText.length() > 0) editable.append(formattedText);
 
+        /*int deltaLength = formattedText.length() - oldFormattedValue.length();
         int newCursorPosition = oldCursorPosition;
 
         if (deltaLength > 0) {
-            newCursorPosition += deltaLength;
+            //newCursorPosition += deltaLength;
         } else if (deltaLength < 0) {
-            newCursorPosition -= 1;
+            //newCursorPosition -= 1;
         } else {
-            Mask mask = mMaskFormatter.get().getMask();
+            IMask mask = mMaskFormatter.get().getMask();
             newCursorPosition = Math.max(1, Math.min(newCursorPosition, mask.size()));
-            /*if (mask.get(newCursorPosition - 1).isPrepopulate())
-                newCursorPosition -= 1;*/
+            //if (mask.get(newCursorPosition - 1).isPrepopulate())
+                //newCursorPosition -= 1;
         }
         newCursorPosition = Math.max(0, Math.min(newCursorPosition, formattedText.length()));
-        editText.setSelection(newCursorPosition);
+        editText.setSelection(newCursorPosition);*/
         editText.addTextChangedListener(this);
     }
     //endregion

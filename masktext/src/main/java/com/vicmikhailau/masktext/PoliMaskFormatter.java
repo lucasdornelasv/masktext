@@ -1,6 +1,8 @@
 package com.vicmikhailau.masktext;
 
 
+import com.vicmikhailau.masktext.formatted_texts.DefaultFormattedText;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,7 +10,7 @@ import java.util.List;
 
 public class PoliMaskFormatter extends AbstractMaskFormatter implements IMaskFormatter {
     //region FIELDS
-    private List<Mask> maskList;
+    private List<IMask> maskList;
     private int currentMaskIndex;
     //endregion
 
@@ -22,7 +24,7 @@ public class PoliMaskFormatter extends AbstractMaskFormatter implements IMaskFor
 
     //region OVERRIDE METHODS
     @Override
-    public Mask getMask() {
+    public IMask getMask() {
         return getMask(getCurrentMaskIndex());
     }
 
@@ -52,10 +54,10 @@ public class PoliMaskFormatter extends AbstractMaskFormatter implements IMaskFor
 
     //region PUBLIC METHODS
     public IFormattedText formatText(String value, int maskIndex) {
-        return getMask(maskIndex).getFormattedString(value);
+        return new DefaultFormattedText(getMask(maskIndex), value);
     }
 
-    public Mask getMask(int maskIndex) {
+    public IMask getMask(int maskIndex) {
         return maskList.get(maskIndex);
     }
 
@@ -69,7 +71,7 @@ public class PoliMaskFormatter extends AbstractMaskFormatter implements IMaskFor
     //region CLASSES
     public static class Builder extends AbstractMaskFormatter.Builder<Builder, PoliMaskFormatter> {
         //region FIELDS
-        private List<Object> maskList;
+        private List<String> maskList;
         //endregion
 
         //region CONSTRUCTORS
@@ -77,12 +79,12 @@ public class PoliMaskFormatter extends AbstractMaskFormatter implements IMaskFor
             addMask(mask);
         }
 
-        public Builder(IMaskCharacter... characters) {
-            addMask(characters);
+        public Builder(String... mask) {
+            addMask(mask);
         }
 
-        public Builder(List<IMaskCharacter> characters) {
-            addMask(characters);
+        public Builder(List<String> mask) {
+            addMask(mask);
         }
         //endregion
 
@@ -101,38 +103,28 @@ public class PoliMaskFormatter extends AbstractMaskFormatter implements IMaskFor
             return this;
         }
 
-        public Builder addMasks(String... masks) {
+        public Builder addMask(String... masks) {
             Collections.addAll(getMaskList(), masks);
             return this;
         }
 
-        public Builder addMask(IMaskCharacter... characters) {
-            return addMask(Arrays.asList(characters));
-        }
-
-        public Builder addMask(List<IMaskCharacter> characters) {
-            getMaskList().add(characters);
+        public Builder addMask(List<String> masks) {
+            getMaskList().addAll(masks);
             return this;
         }
         //endregion
 
         //region PRIVATE METHODS
-        List<Mask> buildMaskList() {
-            List<Mask> maskList = new ArrayList<>(getMaskList().size());
-            Mask mask = null;
-            for (Object o : getMaskList()) {
-                if (o instanceof String) {
-                    mask = toMask((String) o);
-                } else if (o instanceof List) {
-                    mask = toMask((List<IMaskCharacter>) o);
-                }
-                maskList.add(mask);
+        List<IMask> buildMaskList() {
+            final List<IMask> maskList = new ArrayList<>(getMaskList().size());
+            for (String mask : getMaskList()) {
+                maskList.add(toMask(mask));
             }
             return maskList;
         }
 
-        private List<Object> getMaskList() {
-            if (maskList == null) maskList = new ArrayList<>(1);
+        private List<String> getMaskList() {
+            if (maskList == null) maskList = new ArrayList<>();
             return maskList;
         }
         //endregion

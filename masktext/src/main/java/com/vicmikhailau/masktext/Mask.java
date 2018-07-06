@@ -1,23 +1,26 @@
 package com.vicmikhailau.masktext;
 
-import com.vicmikhailau.masktext.formatted_texts.DefaultFormattedText;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Mask {
+public class Mask implements IMask {
     //region FIELDS
-    private String mRawMaskString;
-    private List<IMaskCharacter> mMask;
-    private List<IMaskCharacter> mPrepopulateCharacter;
+    private final String mRawMaskString;
+    private final IMaskCharacterMapper maskCharacterMapper;
+    private List<IMaskCharacter> mMaskCharacters;
+    private List<IMaskCharacter> mPrepopulateCharacters;
+
+    private OnMaskCharacterListener maskCharacterListener;
     //endregion
 
     //region CONSTRUCTORS
-    Mask(String fmtString, List<IMaskCharacter> mMask) {
+    public Mask(String fmtString, IMaskCharacterMapper maskCharacterMapper) {
         this.mRawMaskString = fmtString;
-        this.mMask = mMask;
-        setupPrepolutate();
+        this.maskCharacterMapper = maskCharacterMapper;
+
+        init();
     }
     //endregion
 
@@ -28,51 +31,135 @@ public class Mask {
     public String toString() {
         return getFormatString();
     }
-    //endregion
 
-    //region PUBLIC METHODS
+    @Override
+    public boolean isValid(CharSequence text) {
+        int strIndex = 0;
+        int maskCharIndex = 0;
+        char stringCharacter;
+
+        IMaskCharacter maskCharacter;
+        while (strIndex < text.length() && maskCharIndex < size()) {
+            maskCharacter = get(maskCharIndex);
+            stringCharacter = text.charAt(strIndex);
+
+            if (maskCharacter.isValidCharacter(stringCharacter)) {
+                strIndex++;
+            } else if (!maskCharacter.isPrepopulate()) {
+                return false;
+            }
+            maskCharIndex++;
+        }
+        return true;
+    }
+
+    @Override
+    public String formatString(CharSequence text) {
+        final StringBuilder builder = new StringBuilder();
+
+        int strIndex = 0;
+        int maskCharIndex = 0;
+        char stringCharacter;
+
+        IMaskCharacter maskCharacter;
+        while (strIndex < text.length() && maskCharIndex < size()) {
+            maskCharacter = get(maskCharIndex);
+            stringCharacter = text.charAt(strIndex);
+
+            if (maskCharacter.isValidCharacter(stringCharacter)) {
+                builder.append(maskCharacter.processCharacter(stringCharacter));
+                strIndex++;
+                maskCharIndex++;
+            } else if (maskCharacter.isPrepopulate()) {
+                builder.append(maskCharacter.processCharacter(stringCharacter));
+                maskCharIndex++;
+            } else {
+                strIndex++;
+            }
+            if (maskCharacterListener != null) {
+                maskCharacterListener.onMaskCharacter(new MaskEvent(
+                        maskCharIndex, get(maskCharIndex - 1), maskCharacter, get(maskCharIndex + 1)
+                ));
+            }
+        }
+
+        return builder.toString();
+    }
+
+    @Override
+    public String unmaskString(CharSequence text) {
+        final StringBuilder builder = new StringBuilder();
+        int inputLen = Math.min(size(), text.length());
+        char ch;
+        for (int i = 0; i < inputLen; i++) {
+            ch = text.charAt(i);
+            if (!isValidPrepopulateCharacter(ch, i))
+                builder.append(ch);
+        }
+        return builder.toString();
+    }
+
+    @Override
+    public int size() {
+        return mMaskCharacters.size();
+    }
+
+    @Override
+    public IMaskCharacter get(int index) {
+        try {
+            return mMaskCharacters.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
+    @Override
     public String getFormatString() {
         return mRawMaskString;
     }
 
-    public int size() {
-        return mMask.size();
-    }
-
-    public IMaskCharacter get(int index) {
-        return mMask.get(index);
-    }
-
+    @Override
     public boolean isValidPrepopulateCharacter(char ch, int at) {
         try {
-            IMaskCharacter character = mMask.get(at);
+            IMaskCharacter character = mMaskCharacters.get(at);
             return character.isPrepopulate() && character.isValidCharacter(ch);
         } catch (IndexOutOfBoundsException e) {
             return false;
         }
     }
 
-    public boolean isValidPrepopulateCharacter(char ch){
-        for (IMaskCharacter maskCharacter : mPrepopulateCharacter){
+    @Override
+    public void setOnMaskCharacterListener(OnMaskCharacterListener maskCharacterListener) {
+        this.maskCharacterListener = maskCharacterListener;
+    }
+    //endregion
+
+    //region PUBLIC METHODS
+    public boolean isValidPrepopulateCharacter(char ch) {
+        for (IMaskCharacter maskCharacter : mPrepopulateCharacters) {
             if (maskCharacter.isValidCharacter(ch)) {
                 return true;
             }
         }
         return false;
     }
-
-    public IFormattedText getFormattedString(String value) {
-        return new DefaultFormattedText(this, value);
-    }
     //endregion
 
     //region PRIVATE METHODS
-    private void setupPrepolutate() {
-        mPrepopulateCharacter = new ArrayList<>();
-        for (IMaskCharacter maskCharacter : mMask) {
+    private void init() {
+        final int sizeMask = mRawMaskString.length();
+        mMaskCharacters = new ArrayList<>(sizeMask);
+        mPrepopulateCharacters = new ArrayList<>();
+
+        char ch;
+        IMaskCharacter maskCharacter;
+        for (int i = 0; i < sizeMask; i++) {
+            ch = mRawMaskString.charAt(i);
+            maskCharacter = maskCharacterMapper.map(ch);
             if (maskCharacter.isPrepopulate()) {
-                mPrepopulateCharacter.add(maskCharacter);
+                mPrepopulateCharacters.add(maskCharacter);
             }
+            mMaskCharacters.add(maskCharacter);
         }
     }
     //endregion

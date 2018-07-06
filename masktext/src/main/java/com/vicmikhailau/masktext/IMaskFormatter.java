@@ -2,11 +2,15 @@ package com.vicmikhailau.masktext;
 
 public interface IMaskFormatter {
 
-    Mask getMask();
+    IMask getMask();
 
     IFormattedText formatText(CharSequence value);
 
     IFormattedText formatText(String value);
+
+    String formatString(CharSequence value);
+
+    String formatString(String value);
 
     String unmaskedString(CharSequence value);
 

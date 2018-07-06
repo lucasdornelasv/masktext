@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MaskFormatter extends AbstractMaskFormatter implements IMaskFormatter {
     //region FIELDS
-    private final Mask mask;
+    private final IMask mask;
     //endregion
 
     //region CONSTRUCTORS
@@ -22,7 +22,7 @@ public class MaskFormatter extends AbstractMaskFormatter implements IMaskFormatt
 
     //region OVERRIDE METHODS
     @Override
-    public Mask getMask() {
+    public IMask getMask() {
         return mask;
     }
     //endregion
@@ -32,20 +32,12 @@ public class MaskFormatter extends AbstractMaskFormatter implements IMaskFormatt
     //region CLASSES
     public static class Builder extends AbstractMaskFormatter.Builder<Builder, MaskFormatter> {
         //region FIELDS
-        private final Object mask;
+        private final String mask;
         //endregion
 
         //region CONSTRUCTORS
         public Builder(String mask) {
             this.mask = mask;
-        }
-
-        public Builder(IMaskCharacter... characters) {
-            this(Arrays.asList(characters));
-        }
-
-        public Builder(List<IMaskCharacter> characters) {
-            mask = characters;
         }
         //endregion
 
@@ -59,14 +51,8 @@ public class MaskFormatter extends AbstractMaskFormatter implements IMaskFormatt
         //endregion
 
         //region PACKAGE METHODS
-        Mask buildMask() {
-            Mask aux = null;
-            if (mask instanceof String) {
-                aux = toMask((String) mask);
-            } else if (mask instanceof List) {
-                aux = toMask((List<IMaskCharacter>) mask);
-            }
-            return aux;
+        IMask buildMask() {
+            return toMask(mask);
         }
         //endregion
 

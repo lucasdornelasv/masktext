@@ -1,7 +1,7 @@
 package com.vicmikhailau.masktext;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import com.vicmikhailau.masktext.formatted_texts.DefaultFormattedText;
 
 public abstract class AbstractMaskFormatter implements IMaskFormatter {
     //region METHODS
@@ -9,22 +9,32 @@ public abstract class AbstractMaskFormatter implements IMaskFormatter {
     //region OVERRIDE METHODS
     @Override
     public IFormattedText formatText(CharSequence value) {
-        return formatText(value.toString());
+        return new DefaultFormattedText(getMask(), value);
     }
 
     @Override
     public IFormattedText formatText(String value) {
-        return getMask().getFormattedString(value);
+        return formatText((CharSequence) value);
+    }
+
+    @Override
+    public String formatString(CharSequence value) {
+        return getMask().formatString(value);
+    }
+
+    @Override
+    public String formatString(String value) {
+        return formatString((CharSequence) value);
     }
 
     @Override
     public String unmaskedString(CharSequence value) {
-        return unmaskedString(value.toString());
+        return getMask().unmaskString(value);
     }
 
     @Override
     public String unmaskedString(String value) {
-        return formatText(value).getUnMaskedString();
+        return unmaskedString((CharSequence) value);
     }
     //endregion
 
@@ -34,6 +44,7 @@ public abstract class AbstractMaskFormatter implements IMaskFormatter {
     public static abstract class Builder<B extends Builder, M extends IMaskFormatter> {
         //region FIELDS
         private IMaskCharacterMapper maskCharacterMapper;
+        private OnMaskCharacterListener maskCharacterListener;
         //endregion
 
         //region METHODS
@@ -41,6 +52,11 @@ public abstract class AbstractMaskFormatter implements IMaskFormatter {
         //region PUBLIC METHODS
         public B withMaskCharacterMapper(IMaskCharacterMapper maskCharacterMapper) {
             this.maskCharacterMapper = maskCharacterMapper;
+            return (B) this;
+        }
+
+        public B withOnMaskCharacterListener(OnMaskCharacterListener maskCharacterListener) {
+            this.maskCharacterListener = maskCharacterListener;
             return (B) this;
         }
 
@@ -56,20 +72,10 @@ public abstract class AbstractMaskFormatter implements IMaskFormatter {
             return maskCharacterMapper;
         }
 
-        protected Mask toMask(String formatMask) {
-            List<IMaskCharacter> maskCharacters = new ArrayList<>(formatMask.length());
-            for (char ch : formatMask.toCharArray()) {
-                maskCharacters.add(getMaskCharacterMapper().map(ch));
-            }
-            return new Mask(formatMask, maskCharacters);
-        }
-
-        protected Mask toMask(List<IMaskCharacter> maskCharacters) {
-            StringBuilder formatMask = new StringBuilder();
-            for (IMaskCharacter maskCharacter : maskCharacters) {
-                formatMask.append(getMaskCharacterMapper().map(maskCharacter));
-            }
-            return new Mask(formatMask.toString(), maskCharacters);
+        protected IMask toMask(String formatMask) {
+            final IMask mask = new Mask(formatMask, getMaskCharacterMapper());
+            mask.setOnMaskCharacterListener(maskCharacterListener);
+            return mask;
         }
         //endregion
 

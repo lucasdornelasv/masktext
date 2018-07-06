@@ -3,6 +3,7 @@ package com.vicmikhailau.masktext.formatted_texts;
 import android.support.annotation.NonNull;
 
 import com.vicmikhailau.masktext.IFormattedText;
+import com.vicmikhailau.masktext.IMask;
 import com.vicmikhailau.masktext.IMaskCharacter;
 import com.vicmikhailau.masktext.Mask;
 
@@ -12,70 +13,58 @@ import com.vicmikhailau.masktext.Mask;
 
 public abstract class AbstractFormattedText implements IFormattedText {
     //region FIELDS
-    private final Mask mMask;
-    private final String mRawString;
+    private final IMask mMask;
+    private final CharSequence rawText;
     private String mFormattedString;
     private String mUnmaskedString;
     //endregion
 
     //region CONSTRUCTORS
-    public AbstractFormattedText(Mask mask, String rawString) {
+    public AbstractFormattedText(IMask mask, CharSequence rawText) {
         mMask = mask;
-        mRawString = rawString;
+        this.rawText = rawText;
     }
     //endregion
 
     //region METHODS
 
     //region ABSTRACT METHODS
-    protected abstract String formatString(String str);
+    protected abstract String formatString(CharSequence str);
 
-    protected abstract String buildUnMaskedString(String str);
+    protected abstract String buildUnMaskedString(CharSequence str);
     //endregion
 
     //region OVERRIDE METHODS
     @Override
-    public Mask getMask() {
+    public IMask getMask() {
         return mMask;
     }
 
     @Override
     public String getRawString() {
-        return mRawString;
+        return rawText.toString();
+    }
+
+    @Override
+    public CharSequence getRawText() {
+        return rawText;
     }
 
     @Override
     public String getUnMaskedString() {
-        if (mUnmaskedString == null) mUnmaskedString = buildUnMaskedString(getRawString());
+        if (mUnmaskedString == null) mUnmaskedString = buildUnMaskedString(rawText);
         return mUnmaskedString;
     }
 
     @Override
     public boolean isValid() {
-        String str = getRawString();
-        int strIndex = 0;
-        int maskCharIndex = 0;
-        char stringCharacter;
-
-        IMaskCharacter maskCharacter;
-        while (strIndex < str.length() && maskCharIndex < getMask().size()) {
-            maskCharacter = getMask().get(maskCharIndex);
-            stringCharacter = str.charAt(strIndex);
-
-            if (maskCharacter.isValidCharacter(stringCharacter)) {
-                strIndex++;
-            } else if (!maskCharacter.isPrepopulate()) {
-                return false;
-            }
-            maskCharIndex++;
-        }
-        return true;
+        return getMask().isValid(rawText);
     }
 
     @NonNull
     @Override
     public String toString() {
-        if (mFormattedString == null) mFormattedString = formatString(getRawString());
+        if (mFormattedString == null) mFormattedString = formatString(getRawText());
         return mFormattedString;
     }
 
