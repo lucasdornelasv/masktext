@@ -5,6 +5,13 @@ package com.vicmikhailau.masktext.maskcharacters;
  */
 
 public class LetterCharacter extends AbstractMaskCharacter {
+
+    //region CONSTRUCTORS
+    public LetterCharacter(Character representation) {
+        super(representation);
+    }
+    //endregion
+
     //region METHODS
 
     //region OVERRIDE METHODS

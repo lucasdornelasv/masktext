@@ -19,7 +19,7 @@ public abstract class AbstractMaskFormatter implements IMaskFormatter {
 
     @Override
     public String formatString(CharSequence value) {
-        return getMask().formatString(value);
+        return getMask().formatText(value).toString();
     }
 
     @Override
@@ -29,7 +29,7 @@ public abstract class AbstractMaskFormatter implements IMaskFormatter {
 
     @Override
     public String unmaskedString(CharSequence value) {
-        return getMask().unmaskString(value);
+        return getMask().unmaskText(value).toString();
     }
 
     @Override

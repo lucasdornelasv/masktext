@@ -6,6 +6,8 @@ package com.vicmikhailau.masktext;
 
 public interface IMaskCharacter {
 
+    char getRepresentation();
+
     boolean isValidCharacter(char ch);
 
     char processCharacter(char ch);

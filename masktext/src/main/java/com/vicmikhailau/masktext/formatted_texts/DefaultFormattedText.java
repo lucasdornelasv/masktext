@@ -19,13 +19,13 @@ public class DefaultFormattedText extends AbstractFormattedText {
 
     //region OVERRIDE METHODS
     @Override
-    protected String formatString(CharSequence text) {
-        return getMask().formatString(text);
+    protected CharSequence formatText(CharSequence text) {
+        return getMask().formatText(text);
     }
 
     @Override
-    protected String buildUnMaskedString(CharSequence text) {
-        return getMask().unmaskString(text);
+    protected CharSequence buildUnMaskedText(CharSequence text) {
+        return getMask().unmaskText(text);
     }
     //endregion
 

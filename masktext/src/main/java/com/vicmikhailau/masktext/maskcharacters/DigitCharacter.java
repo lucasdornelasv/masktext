@@ -5,6 +5,12 @@ package com.vicmikhailau.masktext.maskcharacters;
  */
 
 public class DigitCharacter extends AbstractMaskCharacter {
+    //region CONSTRUCTORS
+    public DigitCharacter(Character representation) {
+        super(representation);
+    }
+    //endregion
+
     //region METHODS
 
     //region OVERRIDE METHODS

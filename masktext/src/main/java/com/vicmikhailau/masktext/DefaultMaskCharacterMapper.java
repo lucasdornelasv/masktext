@@ -14,13 +14,13 @@ import com.vicmikhailau.masktext.maskcharacters.UpperCaseCharacter;
 
 public class DefaultMaskCharacterMapper implements IMaskCharacterMapper {
     //region FIELDS
-    private static final char ANYTHING_KEY = '*';
-    private static final char DIGIT_KEY = '#';
-    private static final char UPPERCASE_KEY = 'U';
-    private static final char LOWERCASE_KEY = 'L';
-    private static final char ALPHA_NUMERIC_KEY = 'A';
-    private static final char CHARACTER_KEY = '?';
-    private static final char HEX_KEY = 'H';
+    private static final Character ANYTHING_KEY = '*';
+    private static final Character DIGIT_KEY = '#';
+    private static final Character UPPERCASE_KEY = 'U';
+    private static final Character LOWERCASE_KEY = 'L';
+    private static final Character ALPHA_NUMERIC_KEY = 'A';
+    private static final Character CHARACTER_KEY = '?';
+    private static final Character HEX_KEY = 'H';
     //endregion
 
     //region METHODS
@@ -28,56 +28,14 @@ public class DefaultMaskCharacterMapper implements IMaskCharacterMapper {
     //region OVERRIDE METHODS
     @Override
     public IMaskCharacter map(char ch) {
-        IMaskCharacter maskCharacter;
-        switch (ch) {
-            case ANYTHING_KEY:
-                maskCharacter = new LiteralCharacter();
-                break;
-            case DIGIT_KEY:
-                maskCharacter = new DigitCharacter();
-                break;
-            case UPPERCASE_KEY:
-                maskCharacter = new UpperCaseCharacter();
-                break;
-            case LOWERCASE_KEY:
-                maskCharacter = new LowerCaseCharacter();
-                break;
-            case ALPHA_NUMERIC_KEY:
-                maskCharacter = new AlphaNumericCharacter();
-                break;
-            case CHARACTER_KEY:
-                maskCharacter = new LetterCharacter();
-                break;
-            case HEX_KEY:
-                maskCharacter = new HexCharacter();
-                break;
-            default: {
-                maskCharacter = new LiteralCharacter(ch);
-            }
-
-        }
-        return maskCharacter;
-    }
-
-    @Override
-    public char map(IMaskCharacter maskCharacter) {
-        char ch;
-        if (maskCharacter instanceof HexCharacter) {
-            ch = HEX_KEY;
-        } else if (maskCharacter instanceof LetterCharacter) {
-            ch = CHARACTER_KEY;
-        } else if (maskCharacter instanceof AlphaNumericCharacter) {
-            ch = ALPHA_NUMERIC_KEY;
-        } else if (maskCharacter instanceof LowerCaseCharacter) {
-            ch = LOWERCASE_KEY;
-        } else if (maskCharacter instanceof UpperCaseCharacter) {
-            ch = UPPERCASE_KEY;
-        } else if (maskCharacter instanceof DigitCharacter) {
-            ch = DIGIT_KEY;
-        } else if (maskCharacter instanceof LiteralCharacter) {
-            ch = maskCharacter.processCharacter(ANYTHING_KEY);
-        } else ch = 0;
-        return ch;
+        if (ch == ANYTHING_KEY) return new LiteralCharacter(ANYTHING_KEY, false);
+        if (ch == DIGIT_KEY) return new DigitCharacter(DIGIT_KEY);
+        if (ch == UPPERCASE_KEY) return new UpperCaseCharacter(UPPERCASE_KEY);
+        if (ch == LOWERCASE_KEY) return new LowerCaseCharacter(LOWERCASE_KEY);
+        if (ch == ALPHA_NUMERIC_KEY) return new AlphaNumericCharacter(ALPHA_NUMERIC_KEY);
+        if (ch == CHARACTER_KEY) return new LetterCharacter(CHARACTER_KEY);
+        if (ch == HEX_KEY) return new HexCharacter(HEX_KEY);
+        return new LiteralCharacter(ch, true);
     }
     //endregion
 

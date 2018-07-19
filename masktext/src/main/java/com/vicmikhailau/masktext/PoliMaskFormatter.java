@@ -29,7 +29,7 @@ public class PoliMaskFormatter extends AbstractMaskFormatter implements IMaskFor
     }
 
     @Override
-    public IFormattedText formatText(String value) {
+    public IFormattedText formatText(CharSequence value) {
         IFormattedText formattedText = formatText(value, getCurrentMaskIndex());
         if (maskList.size() > 1 && !formattedText.isValid()) {
             int skipIndex = getCurrentMaskIndex();
@@ -53,7 +53,7 @@ public class PoliMaskFormatter extends AbstractMaskFormatter implements IMaskFor
     //endregion
 
     //region PUBLIC METHODS
-    public IFormattedText formatText(String value, int maskIndex) {
+    public IFormattedText formatText(CharSequence value, int maskIndex) {
         return new DefaultFormattedText(getMask(maskIndex), value);
     }
 

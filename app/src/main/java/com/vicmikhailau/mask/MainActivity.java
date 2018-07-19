@@ -97,12 +97,18 @@ public class MainActivity extends AppCompatActivity {
         formatter = new PoliMaskFormatter.Builder(mask)
                 .addMask(masks)
                 .withOnMaskCharacterListener(new OnMaskCharacterListener() {
+                    boolean last;
+
                     @Override
                     public void onMaskCharacter(MaskEvent maskEvent) {
-                        if (maskEvent.getNext() instanceof DigitCharacter) {
-                            //mEdtMasked.setInputType(InputType.TYPE_CLASS_NUMBER);
-                        } else {
-                            //mEdtMasked.setInputType(InputType.TYPE_CLASS_TEXT);
+                        boolean isNumber = maskEvent.getNext() instanceof DigitCharacter;
+                        if (isNumber != last) {
+                            last = isNumber;
+                            if (isNumber) {
+                                mEdtMasked.setInputType(InputType.TYPE_CLASS_NUMBER);
+                            } else {
+                                mEdtMasked.setInputType(InputType.TYPE_CLASS_TEXT);
+                            }
                         }
                     }
                 })

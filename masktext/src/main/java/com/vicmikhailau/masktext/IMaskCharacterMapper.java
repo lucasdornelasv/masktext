@@ -8,6 +8,4 @@ public interface IMaskCharacterMapper {
 
     IMaskCharacter map(char ch);
 
-    char map(IMaskCharacter maskCharacter);
-
 }

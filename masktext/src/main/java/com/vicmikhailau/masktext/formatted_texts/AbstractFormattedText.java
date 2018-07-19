@@ -29,9 +29,9 @@ public abstract class AbstractFormattedText implements IFormattedText {
     //region METHODS
 
     //region ABSTRACT METHODS
-    protected abstract String formatString(CharSequence str);
+    protected abstract CharSequence formatText(CharSequence str);
 
-    protected abstract String buildUnMaskedString(CharSequence str);
+    protected abstract CharSequence buildUnMaskedText(CharSequence str);
     //endregion
 
     //region OVERRIDE METHODS
@@ -52,7 +52,7 @@ public abstract class AbstractFormattedText implements IFormattedText {
 
     @Override
     public String getUnMaskedString() {
-        if (mUnmaskedString == null) mUnmaskedString = buildUnMaskedString(rawText);
+        if (mUnmaskedString == null) mUnmaskedString = buildUnMaskedText(rawText).toString();
         return mUnmaskedString;
     }
 
@@ -64,7 +64,7 @@ public abstract class AbstractFormattedText implements IFormattedText {
     @NonNull
     @Override
     public String toString() {
-        if (mFormattedString == null) mFormattedString = formatString(getRawText());
+        if (mFormattedString == null) mFormattedString = formatText(getRawText()).toString();
         return mFormattedString;
     }
 

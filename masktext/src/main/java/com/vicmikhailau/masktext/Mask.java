@@ -54,40 +54,53 @@ public class Mask implements IMask {
     }
 
     @Override
-    public String formatString(CharSequence text) {
+    public CharSequence formatText(CharSequence text) {
         final StringBuilder builder = new StringBuilder();
 
         int strIndex = 0;
         int maskCharIndex = 0;
         char stringCharacter;
 
-        IMaskCharacter maskCharacter;
-        while (strIndex < text.length() && maskCharIndex < size()) {
-            maskCharacter = get(maskCharIndex);
-            stringCharacter = text.charAt(strIndex);
+        if (strIndex < text.length()) {
+            IMaskCharacter maskCharacterBefore;
+            IMaskCharacter maskCharacterNext = null;
+            IMaskCharacter maskCharacterActual = null;
 
-            if (maskCharacter.isValidCharacter(stringCharacter)) {
-                builder.append(maskCharacter.processCharacter(stringCharacter));
-                strIndex++;
-                maskCharIndex++;
-            } else if (maskCharacter.isPrepopulate()) {
-                builder.append(maskCharacter.processCharacter(stringCharacter));
-                maskCharIndex++;
-            } else {
-                strIndex++;
-            }
-            if (maskCharacterListener != null) {
-                maskCharacterListener.onMaskCharacter(new MaskEvent(
-                        maskCharIndex, get(maskCharIndex - 1), maskCharacter, get(maskCharIndex + 1)
-                ));
+            while (maskCharIndex < size()) {
+                maskCharacterBefore = maskCharacterActual;
+                maskCharacterActual = maskCharacterNext == null ? get(maskCharIndex) : maskCharacterNext;
+                maskCharacterNext = get(maskCharIndex + 1);
+                do {
+                    stringCharacter = text.charAt(strIndex);
+
+                    if (maskCharacterListener != null) {
+                        maskCharacterListener.onMaskCharacter(new MaskEvent(
+                                stringCharacter, maskCharIndex,
+                                maskCharacterBefore, maskCharacterActual, maskCharacterNext
+                        ));
+                    }
+
+                    if (maskCharacterActual.isValidCharacter(stringCharacter)) {
+                        builder.append(maskCharacterActual.processCharacter(stringCharacter));
+                        strIndex++;
+                        maskCharIndex++;
+                        break;
+                    } else if (maskCharacterActual.isPrepopulate()) {
+                        builder.append(maskCharacterActual.processCharacter(stringCharacter));
+                        maskCharIndex++;
+                        break;
+                    } else {
+                        strIndex++;
+                    }
+                } while (strIndex < text.length());
             }
         }
 
-        return builder.toString();
+        return builder;
     }
 
     @Override
-    public String unmaskString(CharSequence text) {
+    public CharSequence unmaskText(CharSequence text) {
         final StringBuilder builder = new StringBuilder();
         int inputLen = Math.min(size(), text.length());
         char ch;
@@ -96,7 +109,7 @@ public class Mask implements IMask {
             if (!isValidPrepopulateCharacter(ch, i))
                 builder.append(ch);
         }
-        return builder.toString();
+        return builder;
     }
 
     @Override

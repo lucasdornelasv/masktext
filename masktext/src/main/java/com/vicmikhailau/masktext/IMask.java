@@ -6,9 +6,9 @@ public interface IMask {
 
     boolean isValid(CharSequence text);
 
-    String formatString(CharSequence text);
+    CharSequence formatText(CharSequence text);
 
-    String unmaskString(CharSequence text);
+    CharSequence unmaskText(CharSequence text);
 
     IMaskCharacter get(int index);
 

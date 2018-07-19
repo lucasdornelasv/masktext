@@ -9,6 +9,12 @@ public class HexCharacter extends AbstractMaskCharacter {
     private static final String HEX_CHARS = "0123456789ABCDEF";
     //endregion
 
+    //region CONSTRUCTORS
+    public HexCharacter(Character representation) {
+        super(representation);
+    }
+    //endregion
+
     //region METHODS
 
     //region OVERRIDE METHODS

@@ -5,6 +5,12 @@ package com.vicmikhailau.masktext.maskcharacters;
  */
 
 public class UpperCaseCharacter extends AbstractMaskCharacter {
+    //region CONSTRUCTORS
+    public UpperCaseCharacter(Character representation) {
+        super(representation);
+    }
+    //endregion
+
     //region METHODS
 
     //region OVERRIDE METHODS

@@ -2,6 +2,7 @@ package com.vicmikhailau.masktext;
 
 public class MaskEvent {
     //region FIELDS
+    private final Character character;
     private final int index;
     private final IMaskCharacter before;
     private final IMaskCharacter actual;
@@ -9,7 +10,9 @@ public class MaskEvent {
     //endregion
 
     //region CONSTRUCTORS
-    public MaskEvent(int index, IMaskCharacter before, IMaskCharacter actual, IMaskCharacter next) {
+    public MaskEvent(Character character, int index, IMaskCharacter before,
+                     IMaskCharacter actual, IMaskCharacter next) {
+        this.character = character;
         this.index = index;
         this.before = before;
         this.actual = actual;
@@ -20,6 +23,10 @@ public class MaskEvent {
     //region METHODS
 
     //region GETTER AND SETTER METHODS
+    public Character getCharacter() {
+        return character;
+    }
+
     public int getIndex() {
         return index;
     }

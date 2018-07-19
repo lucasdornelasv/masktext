@@ -6,16 +6,13 @@ package com.vicmikhailau.masktext.maskcharacters;
 
 public class LiteralCharacter extends AbstractMaskCharacter {
     //region FIELDS
-    private Character character;
+    private final boolean isPrepopulate;
     //endregion
 
     //region CONSTRUCTORS
-    public LiteralCharacter() {
-        this(null);
-    }
-
-    public LiteralCharacter(Character character) {
-        this.character = character;
+    public LiteralCharacter(Character representation, boolean isPrepopulate) {
+        super(representation);
+        this.isPrepopulate = isPrepopulate;
     }
     //endregion
 
@@ -24,17 +21,17 @@ public class LiteralCharacter extends AbstractMaskCharacter {
     //region OVERRIDE METHODS
     @Override
     public boolean isValidCharacter(char ch) {
-        return character == null || character == ch;
+        return !isPrepopulate || getRepresentation() == ch;
     }
 
     @Override
     public char processCharacter(char ch) {
-        return character != null ? character : super.processCharacter(ch);
+        return isPrepopulate ? getRepresentation() : super.processCharacter(ch);
     }
 
     @Override
     public boolean isPrepopulate() {
-        return character != null || super.isPrepopulate();
+        return isPrepopulate;
     }
     //endregion
 
