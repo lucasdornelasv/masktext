@@ -1,8 +1,8 @@
-package com.vicmikhailau.masktext.formatted_texts;
+package com.luucasdornelas.masktext.formatted_texts;
 
-import com.vicmikhailau.masktext.IMask;
-import com.vicmikhailau.masktext.IMaskCharacter;
-import com.vicmikhailau.masktext.Mask;
+import com.luucasdornelas.masktext.IMask;
+import com.luucasdornelas.masktext.IMaskCharacter;
+import com.luucasdornelas.masktext.Mask;
 
 /**
  * Created by lucas on 02/04/2018.

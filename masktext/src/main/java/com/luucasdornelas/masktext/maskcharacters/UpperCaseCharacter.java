@@ -1,16 +1,12 @@
-package com.vicmikhailau.masktext.maskcharacters;
+package com.luucasdornelas.masktext.maskcharacters;
 
 /**
  * Created by lucas on 02/04/2018.
  */
 
-public class HexCharacter extends AbstractMaskCharacter {
-    //region FIELDS
-    private static final String HEX_CHARS = "0123456789ABCDEF";
-    //endregion
-
+public class UpperCaseCharacter extends AbstractMaskCharacter {
     //region CONSTRUCTORS
-    public HexCharacter(Character representation) {
+    public UpperCaseCharacter(Character representation) {
         super(representation);
     }
     //endregion
@@ -20,7 +16,7 @@ public class HexCharacter extends AbstractMaskCharacter {
     //region OVERRIDE METHODS
     @Override
     public boolean isValidCharacter(char ch) {
-        return Character.isLetterOrDigit(ch) && HEX_CHARS.indexOf(Character.toUpperCase(ch)) != -1;
+        return Character.isUpperCase(ch);
     }
 
     @Override

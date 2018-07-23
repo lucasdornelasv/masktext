@@ -1,4 +1,4 @@
-package com.vicmikhailau.masktext;
+package com.luucasdornelas.masktext;
 
 public interface OnMaskCharacterListener {
 

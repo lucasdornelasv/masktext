@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
 
     defaultConfig {
-        applicationId "com.github.lucasdornelas.mask"
+        applicationId "com.github.lucasdornelas.masktext"
         minSdkVersion 14
         targetSdkVersion 27
         versionCode 1

@@ -1,7 +1,7 @@
-package com.vicmikhailau.masktext.maskcharacters;
+package com.luucasdornelas.masktext.maskcharacters;
 
 
-import com.vicmikhailau.masktext.IMaskCharacter;
+import com.luucasdornelas.masktext.IMaskCharacter;
 
 /**
  * Created by lucas on 02/04/2018.

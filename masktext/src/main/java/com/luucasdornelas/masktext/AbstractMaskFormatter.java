@@ -1,7 +1,7 @@
-package com.vicmikhailau.masktext;
+package com.luucasdornelas.masktext;
 
 
-import com.vicmikhailau.masktext.formatted_texts.DefaultFormattedText;
+import com.luucasdornelas.masktext.formatted_texts.DefaultFormattedText;
 
 public abstract class AbstractMaskFormatter implements IMaskFormatter {
     //region METHODS

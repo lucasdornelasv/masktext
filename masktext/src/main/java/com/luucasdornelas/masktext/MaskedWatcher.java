@@ -1,4 +1,4 @@
-package com.vicmikhailau.masktext;
+package com.luucasdornelas.masktext;
 
 import android.text.Editable;
 import android.text.TextWatcher;

@@ -1,4 +1,4 @@
-package com.vicmikhailau.masktext;
+package com.luucasdornelas.masktext;
 
 import java.util.Arrays;
 import java.util.List;

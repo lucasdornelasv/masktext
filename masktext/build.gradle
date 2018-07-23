@@ -4,20 +4,20 @@ ext {
     bintrayRepo = 'maven'
     bintrayName = 'MaskedEditText'
 
-    publishedGroupId = 'com.vicmikhailau'
+    publishedGroupId = 'com.luucasdornelas'
     libraryName = 'MaskedEditText'
     artifact = 'MaskedEditText'
 
     libraryDescription = 'Add a mask to EditText'
 
-    siteUrl = 'https://github.com/VicMikhailau/MaskedEditText'
-    gitUrl = 'https://github.com/VicMikhailau/MaskedEditText.git'
+    siteUrl = 'https://github.com/Luucasdornelas/MaskedEditText'
+    gitUrl = 'https://github.com/Luucasdornelas/MaskedEditText.git'
 
     libraryVersion = '2.0.4'
 
-    developerId = 'VicMikhailau'
+    developerId = 'Luucasdornelas'
     developerName = 'Vic Mikhailau'
-    developerEmail = 'vicmikhailau@gmail.com'
+    developerEmail = 'luucasdornelas@gmail.com'
 
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'

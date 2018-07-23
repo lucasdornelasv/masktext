@@ -1,4 +1,4 @@
-package com.vicmikhailau.masktext;
+package com.luucasdornelas.masktext;
 
 /**
  * Created by lucas on 02/04/2018.

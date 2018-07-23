@@ -3,7 +3,7 @@
 
 It allows you to add a mask to EditText
 
-![GIF of its use](https://github.com/VicMikhailau/MaskedEditText/blob/master/resources/masked_edit_text.gif)
+![GIF of its use](https://github.com/Luucasdornelas/MaskedEditText/blob/master/resources/masked_edit_text.gif)
 
 # Version
 
@@ -15,7 +15,7 @@ To use this library in your android project, just simply add the following depen
 
 ```sh
 dependencies {
-    compile 'com.vicmikhailau:MaskedEditText:2.0.4'
+    compile 'com.luucasdornelas:MaskedEditText:2.0.4'
 }
 ```
 

@@ -1,13 +1,12 @@
-package com.vicmikhailau.masktext.maskcharacters;
+package com.luucasdornelas.masktext.maskcharacters;
 
 /**
  * Created by lucas on 02/04/2018.
  */
 
-public class LetterCharacter extends AbstractMaskCharacter {
-
+public class AlphaNumericCharacter extends AbstractMaskCharacter {
     //region CONSTRUCTORS
-    public LetterCharacter(Character representation) {
+    public AlphaNumericCharacter(Character representation) {
         super(representation);
     }
     //endregion
@@ -17,7 +16,7 @@ public class LetterCharacter extends AbstractMaskCharacter {
     //region OVERRIDE METHODS
     @Override
     public boolean isValidCharacter(char ch) {
-        return Character.isLetter(ch);
+        return Character.isLetterOrDigit(ch);
     }
     //endregion
 

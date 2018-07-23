@@ -1,12 +1,12 @@
-package com.vicmikhailau.masktext;
+package com.luucasdornelas.masktext;
 
-import com.vicmikhailau.masktext.maskcharacters.AlphaNumericCharacter;
-import com.vicmikhailau.masktext.maskcharacters.DigitCharacter;
-import com.vicmikhailau.masktext.maskcharacters.HexCharacter;
-import com.vicmikhailau.masktext.maskcharacters.LetterCharacter;
-import com.vicmikhailau.masktext.maskcharacters.LiteralCharacter;
-import com.vicmikhailau.masktext.maskcharacters.LowerCaseCharacter;
-import com.vicmikhailau.masktext.maskcharacters.UpperCaseCharacter;
+import com.luucasdornelas.masktext.maskcharacters.AlphaNumericCharacter;
+import com.luucasdornelas.masktext.maskcharacters.DigitCharacter;
+import com.luucasdornelas.masktext.maskcharacters.HexCharacter;
+import com.luucasdornelas.masktext.maskcharacters.LetterCharacter;
+import com.luucasdornelas.masktext.maskcharacters.LiteralCharacter;
+import com.luucasdornelas.masktext.maskcharacters.LowerCaseCharacter;
+import com.luucasdornelas.masktext.maskcharacters.UpperCaseCharacter;
 
 /**
  * Created by lucas on 02/04/2018.
