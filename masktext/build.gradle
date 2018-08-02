@@ -13,11 +13,12 @@ ext {
     siteUrl = 'https://github.com/Luucasdornelas/MaskText'
     gitUrl = 'https://github.com/Luucasdornelas/MaskText.git'
 
-    libraryVersion = '0.0.1'
+    libraryVersion = '0.0.2'
 
     developerId = 'luucasdornelas'
     developerName = 'Lucas Dornelas'
     developerEmail = 'lucasdornelasv@gmail.com'
+    organization = 'luucasdornelas'
 
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
@@ -41,15 +42,12 @@ android {
     }
 }
 
-ext {
-    support = "27.1.1"
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    implementation "com.android.support:appcompat-v7:$support"
+    implementation "com.android.support:appcompat-v7:27.1.1"
 }
 
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+//use gradle distribution configuration files on a remote Github repository
+apply from: 'https://raw.githubusercontent.com/quangctkm9207/template-files/master/android/gradle/install.gradle'
+apply from: 'https://raw.githubusercontent.com/quangctkm9207/template-files/master/android/gradle/bintray.gradle'
