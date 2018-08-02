@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/Luucasdornelas/MaskText'
     gitUrl = 'https://github.com/Luucasdornelas/MaskText.git'
 
-    libraryVersion = '0.0.1'
+    libraryVersion = '0.0.3'
 
     developerId = 'luucasdornelas'
     developerName = 'Lucas Dornelas'
@@ -48,6 +48,4 @@ dependencies {
     implementation "com.android.support:appcompat-v7:27.1.1"
 }
 
-//use gradle distribution configuration files on a remote Github repository
-apply from: 'https://raw.githubusercontent.com/quangctkm9207/template-files/master/android/gradle/install.gradle'
-apply from: 'https://raw.githubusercontent.com/quangctkm9207/template-files/master/android/gradle/bintray.gradle'
+apply from: 'bintray.gradle'
