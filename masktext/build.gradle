@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/Luucasdornelas/MaskText'
     gitUrl = 'https://github.com/Luucasdornelas/MaskText.git'
 
-    libraryVersion = '0.0.2'
+    libraryVersion = '0.0.3'
 
     developerId = 'luucasdornelas'
     developerName = 'Lucas Dornelas'
