@@ -1,3 +1,4 @@
+apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
@@ -7,7 +8,6 @@ version = libraryVersion
 publishing {
     publications {
         Production(MavenPublication) {
-            artifact("$buildDir/outputs/aar/app-release.aar")
             groupId publishedGroupId
             artifactId artifact
             version this.version
@@ -41,6 +41,7 @@ bintray {
 
     publications = ['Production']
     configurations = ['archives']
+    override = true
     pkg {
         repo = bintrayRepo
         name = bintrayName
@@ -51,6 +52,7 @@ bintray {
         licenses = allLicenses
         publish = true
         publicDownloadNumbers = true
+        dryRun = true
         version {
             name = libraryVersion
             desc = libraryDescription
