@@ -1,11 +1,11 @@
 apply plugin: 'com.android.library'
 
 ext {
-    bintrayRepo = 'masktext'
+    bintrayRepo = 'maven'
     bintrayName = 'masktext-core'
 
     publishedGroupId = 'com.luucasdornelas.masktext'
-    libraryName = 'masktext-core'
+    libraryName = 'masktext'
     artifact = 'masktext-core'
 
     libraryDescription = 'Add any masks to EditText'
@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/Luucasdornelas/MaskText'
     gitUrl = 'https://github.com/Luucasdornelas/MaskText.git'
 
-    libraryVersion = '0.0.4'
+    libraryVersion = '0.0.5'
 
     developerId = 'luucasdornelas'
     developerName = 'Lucas Dornelas'
