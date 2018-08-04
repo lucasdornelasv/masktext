@@ -10,10 +10,10 @@ ext {
 
     libraryDescription = 'Add any masks to EditText'
 
-    siteUrl = 'https://github.com/Luucasdornelas/MaskText'
-    gitUrl = 'https://github.com/Luucasdornelas/MaskText.git'
+    siteUrl = 'https://github.com/luucasdornelas/MaskText'
+    gitUrl = 'https://github.com/luucasdornelas/MaskText.git'
 
-    libraryVersion = '0.0.6'
+    libraryVersion = '0.0.8'
 
     developerId = 'luucasdornelas'
     developerName = 'Lucas Dornelas'

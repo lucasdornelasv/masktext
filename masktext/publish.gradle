@@ -29,6 +29,37 @@ publishing {
         }
     }
 }
+
+
+/*--------------------------------*/
+
+if (project.hasProperty("android")) {
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+} else { // Java libraries
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
 /*--------------------------------*/
 
 // Bintray
@@ -52,7 +83,6 @@ bintray {
         licenses = allLicenses
         publish = true
         publicDownloadNumbers = true
-        dryRun = true
         version {
             name = libraryVersion
             desc = libraryDescription
