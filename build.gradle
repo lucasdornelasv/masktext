@@ -8,9 +8,27 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.3'
 
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
     }
+}
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'masktext'
+    group "com.luucasdornelas.masktext"
+
+    siteUrl = 'https://github.com/luucasdornelas/masktext'
+    gitUrl = 'https://github.com/luucasdornelas/masktext.git'
+
+    developerId = 'luucasdornelas'
+    developerName = 'Lucas Dornelas'
+    developerEmail = 'lucasdornelasv@gmail.com'
+    organization = 'luucasdornelas'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
 }
 
 allprojects {

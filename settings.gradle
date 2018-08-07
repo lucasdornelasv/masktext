@@ -1,1 +1,1 @@
-include ':app', ':masktext'
+include ':app', ':masktext-core'
