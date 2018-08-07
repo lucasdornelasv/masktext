@@ -4,8 +4,28 @@ afterEvaluate { project ->
     apply plugin: 'com.github.dcendents.android-maven'
     apply plugin: "com.jfrog.bintray"
 
-    def versionName = project.version
-    version = versionName
+    libraryGroupId = project.libraryGroupId
+    artifact = project.artifact
+    libraryDescription = project.libraryDescription
+    libraryVersion = project.libraryVersion
+
+    bintrayRepo = project.bintrayRepo
+    bintrayName = project.bintrayName
+
+    siteUrl = project.siteUrl
+    gitUrl = project.gitUrl
+
+    developerId = project.developerId
+    developerName = project.developerName
+    developerEmail = project.developerEmail
+    organization = project.organization
+
+    licenseName = project.licenseName
+    licenseUrl = project.licenseUrl
+    allLicenses = project.allLicenses
+
+    group = libraryGroupId
+    version = libraryVersion
 
     if (JavaVersion.current().isJava8Compatible()) {
         allprojects {
@@ -53,9 +73,9 @@ afterEvaluate { project ->
             publish = true
             publicDownloadNumbers = true
             version {
-                name = versionName
+                name = libraryVersion
                 desc = libraryDescription
-                vcsTag = versionName
+                vcsTag = libraryVersion
                 released = new Date()
                 gpg {
                     sign = true
@@ -98,7 +118,7 @@ afterEvaluate { project ->
             release(MavenPublication) {
                 groupId group
                 artifactId artifact
-                version versionName
+                version libraryVersion
                 artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
                 artifact androidSourcesJar
                 artifact androidJavadocsJar
@@ -107,7 +127,7 @@ afterEvaluate { project ->
                     asNode().appendNode('name', artifact)
                     asNode().appendNode('description', libraryDescription)
                     asNode().appendNode('url', siteUrl)
-                    def dependenciesNode = asNode().appendNode('dependencies');
+                    def dependenciesNode = asNode().appendNode('dependencies')
                     configurations.implementation.allDependencies.each {
                         // Ensure dependencies such as fileTree are not included.
                         if (it.name != 'unspecified') {

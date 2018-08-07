@@ -1,8 +1,26 @@
 apply plugin: 'com.android.library'
 
 ext {
+    libraryGroupId = rootProject.libraryGroupId
     artifact = 'masktext-core'
     libraryDescription = 'Add any masks to EditText'
+    libraryVersion = '0.0.10'
+
+
+    bintrayRepo = rootProject.bintrayRepo
+    bintrayName = rootProject.bintrayName
+
+    siteUrl = rootProject.siteUrl
+    gitUrl = rootProject.gitUrl
+
+    developerId = rootProject.developerId
+    developerName = rootProject.developerName
+    developerEmail = rootProject.developerEmail
+    organization = rootProject.organization
+
+    licenseName = rootProject.licenseName
+    licenseUrl = rootProject.licenseUrl
+    allLicenses = rootProject.allLicenses
 }
 
 android {
