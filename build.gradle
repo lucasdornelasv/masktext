@@ -16,10 +16,10 @@ buildscript {
 ext {
     bintrayRepo = 'maven'
     bintrayName = 'masktext'
-    libraryGroupId = "com.luucasdornelas.masktext"
+    libraryGroupId = "com.lucasdornelasv.masktext"
 
-    siteUrl = 'https://github.com/luucasdornelas/masktext'
-    gitUrl = 'https://github.com/luucasdornelas/masktext.git'
+    siteUrl = 'https://github.com/lucasdornelasv/masktext'
+    gitUrl = 'https://github.com/lucasdornelasv/masktext.git'
 
     developerId = 'luucasdornelas'
     developerName = 'Lucas Dornelas'
